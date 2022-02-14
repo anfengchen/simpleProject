@@ -1,0 +1,11 @@
+CMake is an open-source, cross-platform tool that uses compiler and platform independent configuration files to generate native build tool files specific to your compiler and platform.
+
+The CMake Tools extension integrates Visual Studio Code and CMake to make it easy to configure, build, and debug your C++ project.
+
+In this tutorial, you'll use the CMake Tools extension for Visual Studio Code to configure, build, and debug a simple C++ CMake project on Linux. Aside from installing CMake, your compiler, debugger, and build tools, the steps in this tutorial apply generally to how you'd use CMake on other platforms, like Windows.
+
+If you have any trouble, please file an issue for this tutorial in the VS Code documentation repository. Also, for more information about CMake Tools in general, see CMake Tools for Visual Studio Code documentation
+
+A variant contains instructions for how to build your project. By default, the CMake Tools extension provides four variants, each corresponding to a default build type: Debug, Release, MinRelSize, and RelWithDebInfo. These options do the following:
+
+Debug: disables optimizations and includes debug info. Release: Includes optimizations but no debug info. MinRelSize : Optimizes for size. No debug info. RelWithDebInfo: Optimizes for speed and includes debug info.
