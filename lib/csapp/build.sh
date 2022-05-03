@@ -1,0 +1,1 @@
+gcc -Iinclude -shared -fpic -o csapp.so src/csapp.c

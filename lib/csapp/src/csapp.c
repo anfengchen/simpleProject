@@ -179,3 +179,11 @@ int Fstat(int fd, struct stat *buf){
     }
     return 0;
 }
+
+pid_t Fork(void){
+    pid_t pid = fork();
+    if(pid<0){
+        unix_error("Fork error");
+    }
+    return pid;
+}

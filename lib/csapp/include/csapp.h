@@ -9,6 +9,8 @@
 #include <sys/stat.h>
 #include <sys/types.h>
 #include <unistd.h>
+#include<stdlib.h>
+#include<sys/wait.h>
 
 // error print
 void unix_error(char *msg);
@@ -77,8 +79,15 @@ ssize_t rio_readlineb(rio_t *rp, void *usrbuf, size_t maxlen);
 ssize_t rio_readnb(rio_t *rp, void *usrbuf, size_t n);
 
 /************************************************************************
- * 包装函数
+ * 包装函数 文件
  * *********************************************************************/
 
 int Stat(const char*filename, struct stat *buf);
 int Fstat(int fd, struct stat *buf);
+
+/**
+ * @brief 进程相关的函数
+ * 
+ */
+
+pid_t Fork(void);
