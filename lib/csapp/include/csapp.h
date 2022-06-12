@@ -2,16 +2,18 @@
 #include <errno.h>
 #include <fcntl.h>
 #include <netdb.h>
+#define __USE_GNU
+#include <signal.h>
+#include <unistd.h>
+
+#include <setjmp.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <sys/socket.h>
 #include <sys/stat.h>
 #include <sys/types.h>
-#include <unistd.h>
-#include<stdlib.h>
-#include<sys/wait.h>
-
+#include <sys/wait.h>
 // error print
 void unix_error(char *msg);
 void posix_error(int code, char *msg);
@@ -24,7 +26,7 @@ void app_error(char *msg);
  * ********************************************************************/
 /**
  * @brief read的包装函数，处理不足值的问题
- * 
+ *
  * @param fd 文件描述符
  * @param usrbuf 读取值的缓存位置
  * @param n 读取的字符数
@@ -34,7 +36,7 @@ ssize_t rio_readn(int fd, void *usrbuf, size_t n);
 
 /**
  * @brief write的包装函数，会处理打断的错误
- * 
+ *
  * @param fd 文件描述符
  * @param usrbuf 写入值的缓存位置
  * @param n 读取的字符数
@@ -50,9 +52,9 @@ ssize_t rio_writen(int fd, void *usrbuf, size_t n);
  */
 typedef struct
 {
-    int rio_fd; // 文件描述符
-    int rio_cnt; // 还未读取的字符数
-    char *rio_bufptr; // 读取位置的迭代器
+    int rio_fd;                // 文件描述符
+    int rio_cnt;               // 还未读取的字符数
+    char *rio_bufptr;          // 读取位置的迭代器
     char rio_buf[RIO_BUFSZIE]; // 缓存
 } rio_t;
 
@@ -70,11 +72,11 @@ ssize_t rio_readlineb(rio_t *rp, void *usrbuf, size_t maxlen);
 
 /**
  * @brief 缓存版的读取n个字符，处理不足值和打断错误
- * 
+ *
  * @param rp 健壮io的流描述符
  * @param usrbuf 用来保存读取值的内存
  * @param n 目标读取的字符数
- * @return ssize_t 
+ * @return ssize_t
  */
 ssize_t rio_readnb(rio_t *rp, void *usrbuf, size_t n);
 
@@ -82,12 +84,19 @@ ssize_t rio_readnb(rio_t *rp, void *usrbuf, size_t n);
  * 包装函数 文件
  * *********************************************************************/
 
-int Stat(const char*filename, struct stat *buf);
+int Stat(const char *filename, struct stat *buf);
 int Fstat(int fd, struct stat *buf);
 
 /**
  * @brief 进程相关的函数
- * 
+ *
  */
 
 pid_t Fork(void);
+char *Fgets(char *str, int num, FILE *stream);
+
+ssize_t sio_puts(char s[]);
+ssize_t sio_putl(long v);
+void sio_error(char s[]);
+
+sighandler_t Signal(int signum, sighandler_t handler);

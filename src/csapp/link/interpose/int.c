@@ -1,0 +1,10 @@
+#include<stdio.h>
+#include<malloc.h>
+
+int main(){
+
+    int *p = malloc(32);
+    free(p);
+    fprintf(stderr,"prog end\n");
+    return 0;
+}
