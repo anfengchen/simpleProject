@@ -15,18 +15,22 @@ g++ -I ./ -g -c ./*.cpp
 if [ $arg = 'dynamic' ]
 then
 #生成动态库
-    g++ -shared -fPIC -o n_maxSubSum.so n_maxSubSum.cpp
+    g++ -shared -fpic -o n_maxSubSum.so n_maxSubSum.cpp
     g++ -o main main.o n_maxSubSum.so
     export  LD_LIBRARY_PATH=./
     echo "run MaxSubSum time complexity O(n): "
     ./main
 elif [ $arg = 'static' ]
 then
-    echo "run MaxSubSum time complexity O(n^2): "
-    g++ -o main main.o n2_maxSubSum.o
-    ./main
-else
     echo "run MaxSubSum time complexity O(nlogn): "
     g++ -o main main.o nlogn_maxSubSum.o
+    ./main
+else
+    echo "run MaxSubSum time complexity O(n^2): "
+    g++ -shared -fpic -o n_maxSubSum.so n_maxSubSum.cpp
+    g++ -o main main.o n_maxSubSum.so
+    rm n_maxSubSum.so
+    g++ -shared -fpic -o n_maxSubSum.so n2_maxSubSum.cpp
+    export  LD_LIBRARY_PATH=./
     ./main
 fi

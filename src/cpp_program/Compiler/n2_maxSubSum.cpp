@@ -1,9 +1,13 @@
 #include "max_sub_sum.h"
-
+#include <iostream>
 using std::vector;
-
+int count;
 int MaxSubSum(const vector<int> &vec)
 {
+    if (count++ == 0)
+    {
+        std::cout << "O(n2) MaxSubSum run\n";
+    }
     int max = 0;
     for (auto i = 0; i < vec.size(); ++i)
     {
